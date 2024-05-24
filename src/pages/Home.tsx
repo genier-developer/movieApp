@@ -1,48 +1,66 @@
 import {
     IonContent,
     IonHeader,
-    IonItem, IonLabel,
+    IonItem,
+    IonLabel, IonList,
     IonPage,
     IonSearchbar,
     IonSelect,
+    IonSelectOption,
     IonTitle,
     IonToolbar
 } from '@ionic/react';
 import './Home.css';
-import {useApi} from "../hooks/useApi";
+import {SearchType, useApi} from "../hooks/useApi";
 import {useEffect, useState} from "react";
 
 const Home = () => {
     const {searchData} = useApi()
 
     const [searchTerm, setSearchTerm] = useState('')
-    const [type, setType] = useState('')
+    const [type, setType] = useState<SearchType>(SearchType.all)
     const [results, setResults] = useState([])
 
     useEffect(() => {
-        console.log('Search:', searchTerm)
+        if (searchTerm === '') {
+            setResults([])
+            console.log('No results')
+            return
+        }
+        const fetchData = async () => {
+            const result = await searchData(searchTerm, type)
+            setResults(result)
+            console.log( result)
+        }
+        fetchData()
     }, [searchTerm]);
 
     return (
         <IonPage>
             <IonHeader>
-                <IonToolbar>
-                    <IonTitle>Blank</IonTitle>
+                <IonToolbar color={'primary'}>
+                    <IonTitle>My Movie App</IonTitle>
                 </IonToolbar>
             </IonHeader>
-            <IonContent fullscreen>
+            <IonContent>
                 <IonSearchbar value={searchTerm}
                               debounce={300}
                               onIonChange={(e) => setSearchTerm(e.detail.value!)}>
 
                 </IonSearchbar>
-
                 <IonItem>
-                    <IonLabel>Select Search Type</IonLabel>
+                    <IonLabel>Select Search type</IonLabel>
+                    <IonSelect value={type}
+                               onIonChange={(e) => setType(e.detail.value)}>
+                        <IonSelectOption value={''}>All</IonSelectOption>
+                        <IonSelectOption value={'movie'}>Movie</IonSelectOption>
+                        <IonSelectOption value={'series'}>Series</IonSelectOption>
+                        <IonSelectOption value={'episode'}>Episode</IonSelectOption>
+                    </IonSelect>
                 </IonItem>
-                <IonSelect value={type}
-                           onIonChange={(e) => setType(e.detail.value)}>
-                </IonSelect>
+                <IonList>
+                    {results}
+                </IonList>
             </IonContent>
         </IonPage>
     );

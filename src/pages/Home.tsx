@@ -8,10 +8,10 @@ import {
     IonSelect,
     IonSelectOption,
     IonTitle,
-    IonToolbar
+    IonToolbar, useIonAlert, useIonLoading
 } from '@ionic/react';
 import './Home.css';
-import {SearchType, useApi} from "../hooks/useApi";
+import {SearchResult, SearchType, useApi} from "../hooks/useApi";
 import {useEffect, useState} from "react";
 
 const Home = () => {
@@ -19,7 +19,9 @@ const Home = () => {
 
     const [searchTerm, setSearchTerm] = useState('')
     const [type, setType] = useState<SearchType>(SearchType.all)
-    const [results, setResults] = useState([])
+    const [results, setResults] = useState<SearchResult[]>([])
+    const [presentAlert] = useIonAlert()
+    const [loading, dismiss] = useIonLoading()
 
     useEffect(() => {
         if (searchTerm === '') {
@@ -28,9 +30,14 @@ const Home = () => {
             return
         }
         const fetchData = async () => {
-            const result = await searchData(searchTerm, type)
-            setResults(result)
-            console.log( result)
+            await loading()
+            const result: any = await searchData(searchTerm, type)
+            await dismiss()
+            if(result.Error){
+                presentAlert(result.Error)
+            } else {
+                setResults(result.Search)
+            }
         }
         fetchData()
     }, [searchTerm]);
@@ -49,8 +56,9 @@ const Home = () => {
 
                 </IonSearchbar>
                 <IonItem>
-                    <IonLabel>Select Search type</IonLabel>
-                    <IonSelect value={type}
+                    <IonLabel>Search type</IonLabel>
+                    <IonSelect
+                        value={type}
                                onIonChange={(e) => setType(e.detail.value)}>
                         <IonSelectOption value={''}>All</IonSelectOption>
                         <IonSelectOption value={'movie'}>Movie</IonSelectOption>
@@ -59,7 +67,11 @@ const Home = () => {
                     </IonSelect>
                 </IonItem>
                 <IonList>
-                    {results}
+                    {results.map((item) => (
+                        <IonItem key={item.imdbID}>
+                            <IonLabel>{item.Title}</IonLabel>
+                        </IonItem>
+                    ))}
                 </IonList>
             </IonContent>
         </IonPage>

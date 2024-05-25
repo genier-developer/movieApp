@@ -45,7 +45,7 @@ const Home = () => {
             }
         }
         fetchData()
-    }, [searchTerm]);
+    }, [searchTerm, type]);
 
     return (
         <IonPage>
@@ -73,7 +73,7 @@ const Home = () => {
                 </IonItem>
                 <IonList>
                     {results.map((item) => (
-                        <IonItem button key={item.imdbID}>
+                        <IonItem button key={item.imdbID} routerLink={`/movies/${item.imdbID}`}>
                             <IonAvatar slot={'start'}>
                                 <IonImg src={item.Poster}></IonImg>
                             </IonAvatar>

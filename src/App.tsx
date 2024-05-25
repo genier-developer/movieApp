@@ -42,7 +42,6 @@ const App: React.FC = () => (
       <IonRouterOutlet>
         <Route exact path="/movies" component={Home}/>
         <Route exact path="/movies/:id" component={Details}/>
-
         <Route exact path="/">
           <Redirect to="/movies" />
         </Route>

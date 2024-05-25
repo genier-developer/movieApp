@@ -44,7 +44,7 @@ const Home = () => {
                 setResults(result.Search)
             }
         }
-        fetchData()
+        void fetchData()
     }, [searchTerm, type]);
 
     return (
@@ -73,7 +73,8 @@ const Home = () => {
                 </IonItem>
                 <IonList>
                     {results.map((item) => (
-                        <IonItem button key={item.imdbID} routerLink={`/movies/${item.imdbID}`}>
+                        <IonItem button key={item.imdbID}
+                                 routerLink={`/movies/${item.imdbID}`}>
                             <IonAvatar slot={'start'}>
                                 <IonImg src={item.Poster}></IonImg>
                             </IonAvatar>

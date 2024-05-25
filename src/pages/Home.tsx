@@ -31,7 +31,6 @@ const Home = () => {
     useEffect(() => {
         if (searchTerm === '') {
             setResults([])
-            console.log('No results')
             return
         }
         const fetchData = async () => {
@@ -39,7 +38,7 @@ const Home = () => {
             const result: any = await searchData(searchTerm, type)
             await dismiss()
             if(result.Error){
-                presentAlert(result.Error)
+                await presentAlert(result.Error)
             } else {
                 setResults(result.Search)
             }

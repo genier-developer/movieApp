@@ -15,6 +15,7 @@ export type DetailResult = {
     Director: string
     Actors: string
     Website: string
+    Awards: string
 }
 export type SearchResult = {
     Title: string;

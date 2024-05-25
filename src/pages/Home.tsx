@@ -1,6 +1,9 @@
 import {
+    IonAvatar,
     IonContent,
     IonHeader,
+    IonIcon,
+    IonImg,
     IonItem,
     IonLabel, IonList,
     IonPage,
@@ -13,6 +16,8 @@ import {
 import './Home.css';
 import {SearchResult, SearchType, useApi} from "../hooks/useApi";
 import {useEffect, useState} from "react";
+import {videocamOutline} from "ionicons/icons";
+
 
 const Home = () => {
     const {searchData} = useApi()
@@ -69,7 +74,11 @@ const Home = () => {
                 <IonList>
                     {results.map((item) => (
                         <IonItem key={item.imdbID}>
+                            <IonAvatar slot={'start'}>
+                                <IonImg src={item.Poster}></IonImg>
+                            </IonAvatar>
                             <IonLabel>{item.Title}</IonLabel>
+                            <IonIcon slot={'end'} icon={videocamOutline}/>
                         </IonItem>
                     ))}
                 </IonList>

@@ -62,6 +62,7 @@ const Home = () => {
                 <IonItem>
                     <IonLabel>Search type</IonLabel>
                     <IonSelect
+                        slot={'end'}
                         value={type}
                                onIonChange={(e) => setType(e.detail.value)}>
                         <IonSelectOption value={''}>All</IonSelectOption>

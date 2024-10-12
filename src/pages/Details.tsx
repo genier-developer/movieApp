@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import { FC, useState} from 'react';
 import {
     IonBackButton, IonButton,
     IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle,
@@ -13,10 +13,9 @@ import {DetailResult, useApi} from "../hooks/useApi";
 import {bodyOutline, clipboardOutline, starHalfOutline, trophyOutline} from "ionicons/icons";
 
 
-interface DetailsPageProps extends RouteComponentProps<{ id: string }> {
-}
+type DetailsPageProps = RouteComponentProps<{ id: string }>
 
-export const Details: React.FC<DetailsPageProps> = ({match}) => {
+export const Details: FC<DetailsPageProps> = ({match}) => {
     const {getDetails} = useApi()
     const [information, setInformation] = useState<DetailResult | null>(null)
 
@@ -51,8 +50,8 @@ export const Details: React.FC<DetailsPageProps> = ({match}) => {
                             <IonCardTitle>{information.Title}</IonCardTitle>
                             <IonCardSubtitle>{information.Year}</IonCardSubtitle>
                         </IonCardHeader>
-                        <IonCardContent>
-                            <IonImg src={information.Poster} style={{ width: '100vw', height: '100vh', objectFit: 'cover' }} />
+                        <IonCardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                            <IonImg src={information.Poster} style={{ width: '70vw', height: '70vh', objectFit: 'cover' }} />
                             <IonItem lines={'none'}>
                                 <IonIcon icon={starHalfOutline} slot={'start'} color={'warning'}/>
                                 <IonLabel>{information.imdbRating}</IonLabel>

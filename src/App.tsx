@@ -29,14 +29,13 @@ import '@ionic/react/css/display.css';
 /* import '@ionic/react/css/palettes/dark.always.css'; */
 /* import '@ionic/react/css/palettes/dark.class.css'; */
 import '@ionic/react/css/palettes/dark.system.css';
-
-/* Theme variables */
+import {FC} from "react";
 import './theme/variables.css';
 import {Details} from "./pages/Details";
 
 setupIonicReact();
 
-const App: React.FC = () => (
+const App: FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>

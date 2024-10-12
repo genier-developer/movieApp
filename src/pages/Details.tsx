@@ -52,7 +52,7 @@ export const Details: React.FC<DetailsPageProps> = ({match}) => {
                             <IonCardSubtitle>{information.Year}</IonCardSubtitle>
                         </IonCardHeader>
                         <IonCardContent>
-                            <IonImg src={information.Poster}/>
+                            <IonImg src={information.Poster} style={{ width: '100vw', height: '100vh', objectFit: 'cover' }} />
                             <IonItem lines={'none'}>
                                 <IonIcon icon={starHalfOutline} slot={'start'} color={'warning'}/>
                                 <IonLabel>{information.imdbRating}</IonLabel>

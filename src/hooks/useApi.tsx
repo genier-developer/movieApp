@@ -17,6 +17,7 @@ export type DetailResult = {
     Website: string
     Awards: string
 }
+
 export type SearchResult = {
     Title: string;
     Year: string;
@@ -24,14 +25,15 @@ export type SearchResult = {
     Type: string;
     Poster: string;
 }
+
 export type SearchError = {
     Response: string;
     Error: string;
 }
 
 export const useApi = (() => {
-    let url = 'https://www.omdbapi.com/'
-    let apiKey = '33ab72be'
+    const url = 'https://www.omdbapi.com/'
+    const apiKey = '33ab72be'
 
     const searchData = async (title: string, type: SearchType): Promise <SearchResult[] | SearchError> => {
         const result = await fetch(

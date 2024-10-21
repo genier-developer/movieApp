@@ -1,4 +1,3 @@
-
 import {
     IonAvatar,
     IonContent,
@@ -55,22 +54,23 @@ const Home = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent>
-                <IonSearchbar value={searchTerm}
-                              debounce={300}
-                              onIonChange={(e) => setSearchTerm(e.detail.value!)}>
-
-                </IonSearchbar>
                 <IonItem>
                     <IonLabel>Search type</IonLabel>
                     <IonSelect
                         value={type}
-                               onIonChange={(e) => setType(e.detail.value)}>
+                        onIonChange={(e) => setType(e.detail.value)}>
                         <IonSelectOption value={''}>All</IonSelectOption>
                         <IonSelectOption value={'movie'}>Movie</IonSelectOption>
                         <IonSelectOption value={'series'}>Series</IonSelectOption>
                         <IonSelectOption value={'episode'}>Episode</IonSelectOption>
                     </IonSelect>
                 </IonItem>
+                <IonSearchbar value={searchTerm}
+                              debounce={300}
+                              onIonChange={(e) => setSearchTerm(e.detail.value!)}>
+
+                </IonSearchbar>
+
                 <IonList>
                     {results.map((item) => (
                         <IonItem button key={item.imdbID}
